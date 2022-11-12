@@ -17,6 +17,7 @@ class ActivityEntity {
   List<String> tags;
   double lat;
   double long;
+  List<String>? images;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -32,6 +33,7 @@ class ActivityEntity {
     required this.tags,
     required this.lat,
     required this.long,
+    required this.images,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -48,6 +50,7 @@ class ActivityEntity {
     List<String>? tags,
     double? lat,
     double? long,
+    List<String>? images,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -63,6 +66,7 @@ class ActivityEntity {
       endTime: endTime ?? this.endTime,
       gender: gender ?? this.gender,
       tags: tags ?? this.tags,
+      images: images ?? this.images,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -80,6 +84,7 @@ class ActivityEntity {
       'endTime': endTime,
       'gender': gender,
       'tags': tags,
+      'images': images ?? [],
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -98,6 +103,7 @@ class ActivityEntity {
       tags: map['tags'] as List<String>,
       lat: map['lat'] as double,
       long: map['long'] as double,
+      images: ((map['images'] ?? []) as List<dynamic>).cast(),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -116,6 +122,7 @@ class ActivityEntity {
       tags: (map['tags'] as List<dynamic>).cast(),
       lat: map['lat'] as double,
       long: map['long'] as double,
+      images: ((map['images'] ?? []) as List<dynamic>).cast(),
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       updatedAt: (map['updatedAt'] as Timestamp).toDate(),
     );
@@ -144,6 +151,7 @@ class ActivityEntity {
         other.long == long &&
         other.gender == gender &&
         listEquals(other.tags, tags) &&
+        listEquals(other.images, images) &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt;
   }
@@ -157,6 +165,7 @@ class ActivityEntity {
         endTime.hashCode ^
         gender.hashCode ^
         tags.hashCode ^
+        images.hashCode ^
         createdAt.hashCode ^
         lat.hashCode ^
         long.hashCode ^

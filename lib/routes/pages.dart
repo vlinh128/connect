@@ -7,6 +7,9 @@ import 'package:connect/routes/routes.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 
+import '../app/views/splash/splash_binding.dart';
+import '../app/views/splash/splash_page.dart';
+
 class AppPages {
   static final pages = [
     GetPage(
@@ -14,11 +17,11 @@ class AppPages {
       page: () => const DashBoardPage(),
       binding: DashBoardBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.splash,
-    //   page: () => const SplashPage(),
-    //   binding: SplashBinding(),
-    // ),
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => const SplashPage(),
+      binding: SplashBinding(),
+    ),
     // GetPage(
     //   name: AppRoutes.home,
     //   page: () => const HomePage(),

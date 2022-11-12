@@ -1,4 +1,5 @@
 import 'package:connect/app/domains/activity/activity_use_case.dart';
+import 'package:connect/app/views/activity_detail/acitivity_detail_controller.dart';
 import 'package:connect/app/views/create/created_acitivity_controller.dart';
 import 'package:connect/app/views/dashboard/dashboard_controller.dart';
 import 'package:get/instance_manager.dart';

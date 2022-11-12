@@ -1,18 +1,25 @@
 import 'package:connect/app/domains/activity/activity_entity.dart';
+import 'package:connect/app/domains/activity/activity_use_case.dart';
+import 'package:connect/app/views/activity_detail/acitivity_detail_controller.dart';
 import 'package:connect/app/views/create/components/tags.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:galleryimage/galleryimage.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ActivityDetailPage extends StatelessWidget {
   final ActivityEntity activity;
-  const ActivityDetailPage({Key? key, required this.activity})
-      : super(key: key);
+  final ActivityDetailController _ =
+      ActivityDetailController(Get.find<ActivityUseCase>());
+
+  ActivityDetailPage({Key? key, required this.activity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _.activity = activity;
+    _.getActivity(activity.id ?? '');
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -35,7 +42,7 @@ class ActivityDetailPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    activity.locationDesc,
+                    _.activity.locationDesc,
                     textAlign: TextAlign.center,
                   ),
                   FormBuilder(
@@ -45,7 +52,7 @@ class ActivityDetailPage extends StatelessWidget {
                         const SizedBox(height: 15),
                         FormBuilderTextField(
                           name: "createdBy",
-                          initialValue: activity.createdBy,
+                          initialValue: _.activity.createdBy,
                           readOnly: true,
                           decoration: const InputDecoration(
                             labelText: 'Owner',
@@ -54,14 +61,14 @@ class ActivityDetailPage extends StatelessWidget {
                         FormBuilderTextField(
                           name: "name",
                           readOnly: true,
-                          initialValue: activity.name,
+                          initialValue: _.activity.name,
                           decoration: const InputDecoration(
                             labelText: 'Activity Name',
                           ),
                         ),
                         FormBuilderTextField(
                           name: "description",
-                          initialValue: activity.description,
+                          initialValue: _.activity.description,
                           readOnly: true,
                           decoration: const InputDecoration(
                             labelText: 'Description',
@@ -70,7 +77,7 @@ class ActivityDetailPage extends StatelessWidget {
                         FormBuilderTextField(
                           name: "startTime",
                           initialValue: DateFormat("yyyy-MM-dd HH:MM a")
-                              .format(activity.startTime.toLocal()),
+                              .format(_.activity.startTime.toLocal()),
                           readOnly: true,
                           decoration: const InputDecoration(
                             labelText: 'Start Time',
@@ -80,7 +87,7 @@ class ActivityDetailPage extends StatelessWidget {
                             ? FormBuilderTextField(
                                 name: "endTime",
                                 initialValue: DateFormat("yyyy-MM-dd HH:MM a")
-                                    .format(activity.endTime!.toLocal()),
+                                    .format(_.activity.endTime!.toLocal()),
                                 readOnly: true,
                                 decoration: const InputDecoration(
                                   labelText: 'End Time',
@@ -95,24 +102,35 @@ class ActivityDetailPage extends StatelessWidget {
                             hintText: 'Select Gender',
                           ),
                           items: [],
-                          initialValue: activity.gender,
+                          initialValue: _.activity.gender,
                           valueTransformer: (val) => val?.toString(),
                         ),
                         FormBuilderFilterChip<String>(
                           decoration: const InputDecoration(labelText: 'Tags'),
                           name: 'tags',
                           enabled: false,
-                          initialValue: activity.tags,
+                          initialValue: _.activity.tags,
                           selectedColor: Colors.green,
                           options: tagsListComponents
                               .where((element) =>
-                                  activity.tags.contains(element.value))
+                                  _.activity.tags.contains(element.value))
                               .toList(),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Gallery',
+                    style: TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
+                  GetBuilder<ActivityDetailController>(
+                      init: _,
+                      builder: (controller) {
+                        print(controller.activity.images!.length.toString());
+                        return GalleryPage(activityEntity: controller.activity);
+                      })
                 ],
               ),
             ),
@@ -123,7 +141,9 @@ class ActivityDetailPage extends StatelessWidget {
                 child: CupertinoButton(
                   color: Colors.green,
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: () async {
+                    await _.checkIn(context, activity);
+                  },
                   child: const Text(
                     'Check In',
                     style: TextStyle(color: Colors.white),
@@ -144,5 +164,28 @@ class ActivityDetailPage extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+class GalleryPage extends StatefulWidget {
+  GalleryPage({Key? key, required this.activityEntity}) : super(key: key);
+
+  ActivityEntity activityEntity;
+
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<GalleryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return (widget.activityEntity.images ?? []).isNotEmpty
+        ? GalleryImage(
+            numOfShowImages: widget.activityEntity.images == null
+                ? 0
+                : widget.activityEntity.images!.length,
+            imageUrls: widget.activityEntity.images ?? [],
+          )
+        : const SizedBox();
   }
 }

@@ -11,4 +11,13 @@ class ActivityUseCase {
       entity: activityEntity,
     );
   }
+
+  Future<ActivityEntity?> getActivity(String id) async {
+    return await _activityRepo.getActivity(id);
+  }
+
+  Future<ActivityEntity?> addImageForActivity(
+      ActivityEntity activityEntity, String imageURL) async {
+    return await _activityRepo.addImage(activityEntity, imageURL);
+  }
 }

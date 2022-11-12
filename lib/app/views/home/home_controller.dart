@@ -54,7 +54,6 @@ class HomeController extends GetxController {
 
   Future<void> getActivities() async {
     final activities = await _activityUsecase.getActivities();
-    debugPrint(activities.length.toString());
     for (var activity in activities) {
       await makers.addLabelMarker(
         LabelMarker(

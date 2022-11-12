@@ -13,23 +13,91 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      appBar: AppBar(
+        title: const Text(
+          "Let Enjoy",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              splashPageLabel.tr,
-              style: AppTextStyle.title(context),
+            const Text(
+              "Which Activities are you interested in ?",
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
             const SizedBox(height: 32),
             CupertinoButton(
               onPressed: controller.toHomePage,
-              color: AppColors.button(context),
-              child: Text(
-                nextButtonLabel.tr,
-                style: AppTextStyle.button(context),
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Entertainment",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            )
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Sport",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Shopping",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "F&B",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Learning",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Volunteer",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton(
+              onPressed: controller.toHomePage,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              color: Colors.green,
+              child: const Text(
+                "Festival",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       ),

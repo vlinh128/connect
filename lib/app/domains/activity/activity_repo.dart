@@ -6,4 +6,7 @@ abstract class ActivityRepository {
   });
 
   Future<List<ActivityEntity>> getActivities();
+  Future<ActivityEntity?> getActivity(String id);
+
+  Future<ActivityEntity?> addImage(ActivityEntity activity, String imageURL);
 }

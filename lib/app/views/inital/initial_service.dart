@@ -22,7 +22,5 @@ class InitialService extends GetxService {
 
   Locale get locale => Locale(_settingUseCase.settingEntity.languageCode);
 
-  String get firstPage => _settingUseCase.settingEntity.isFirstTime
-      ? AppRoutes.splash
-      : AppRoutes.dashboard;
+  String get firstPage => AppRoutes.splash;
 }

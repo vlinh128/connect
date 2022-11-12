@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CreateActivityController extends GetxController {
   final ActivityUseCase _activityUseCase;
@@ -36,7 +35,6 @@ class CreateActivityController extends GetxController {
         'long': selectedLocation?.location!.longitude,
         'locationDesc': selectedLocation?.desc,
       };
-      debugPrint(data.toString());
 
       formKey.currentState?.value.entries.forEach((element) {
         data[element.key] = element.value;
